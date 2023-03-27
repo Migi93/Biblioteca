@@ -7,6 +7,6 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface EditorialesMapper {
 
-    @Select("SELECT * FROM editoriales WHERE id=#{editorialesId}")
+    @Select("SELECT * FROM EDITORIALES WHERE ID=#{editorialesId}")
     Editoriales getEditorial(int editorialesId);
 }

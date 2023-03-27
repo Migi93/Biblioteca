@@ -6,7 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RestController()
+//@RestController()
+@RestController
 @RequestMapping("/libros")
 public class LibrosController {
 
@@ -23,9 +24,8 @@ public class LibrosController {
         return new ResponseEntity<>(libroDevuelto, HttpStatus.CREATED);
     }
 
-    @GetMapping("")
-    ResponseEntity<Libros> getLibro(@RequestBody Libros libros) {
-        Libros libroObtenido = this.librosService.obtenerLibro(libros.getLibroId());
-        return new ResponseEntity<>(libroObtenido, HttpStatus.OK);
+    @GetMapping("/{id}")
+    ResponseEntity<Libros> getLibro(@PathVariable("id") int libroId) {
+        return new ResponseEntity<>(this.librosService.obtenerLibro(libroId), HttpStatus.OK);
     }
 }
