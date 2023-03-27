@@ -1,16 +1,20 @@
 package com.api.biblioteca.services.impl;
 
+import com.api.biblioteca.exceptions.BookNotFoundException;
+import com.api.biblioteca.exceptions.RequiredMissingFieldException;
+import com.api.biblioteca.exceptions.WorngLengthFielException;
 import com.api.biblioteca.models.Libros;
 import com.api.biblioteca.persistance.database.mappers.EditorialesMapper;
 import com.api.biblioteca.persistance.database.mappers.LibrosMapper;
 import com.api.biblioteca.services.LibrosService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class LibrosServiceImpl implements LibrosService {
 
     LibrosMapper librosMapper;
-
     EditorialesMapper editorialesMapper;
 
     public LibrosServiceImpl(LibrosMapper librosMapper, EditorialesMapper editorialesMapper) {
@@ -18,15 +22,51 @@ public class LibrosServiceImpl implements LibrosService {
         this.editorialesMapper = editorialesMapper;
     }
 
-    @Override
-    public Libros insertarLibro(Libros libros) {
+    public Libros insertBook(Libros libros) {
+        libros.setEditorial(editorialesMapper.getEditorial(libros.getEditorial().getEditorialesId()));
         this.librosMapper.insertarLibro(libros);
         return libros;
     }
 
     @Override
-    public Libros obtenerLibro(int libroId) {
+    public Libros getBook(int libroId) {
         return librosMapper.getLibro(libroId);
     }
+
+    @Override
+    public List<Libros> listBooks() {
+        List<Libros> libros = librosMapper.getListLibros();
+        for (Libros libro : libros) {
+            libro.setEditorial(editorialesMapper.getEditorial(libro.getEditorial().getEditorialesId()));
+        }
+        return libros;
+    }
+
+    @Override
+    public void deleteBook(int libroId) throws BookNotFoundException {
+        existBook(libroId);
+        librosMapper.deleteBook(libroId);
+    }
+
+    //VALIDACIONES
+    private void validateNameBook(Libros libros) throws RequiredMissingFieldException, WorngLengthFielException {
+        if (libros.getTitulo() == null || libros.getTitulo().isEmpty()) {
+            throw new RequiredMissingFieldException();
+        }
+        if (libros.getTitulo().length() > 100) {
+            throw new WorngLengthFielException();
+        }
+    }
+
+    private void validateBook(Libros libros) throws RequiredMissingFieldException, WorngLengthFielException {
+        this.validateNameBook(libros);
+    }
+
+    private void existBook(int libroId) throws BookNotFoundException {
+        if (librosMapper.existeLibro(libroId) < 1) {
+            throw new BookNotFoundException();
+        }
+    }
+
 
 }

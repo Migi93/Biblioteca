@@ -19,4 +19,7 @@ public interface EditorialesMapper {
             @Result(property = "fechaCreacion", column = "FECHA_CREACION")
     })
     Editoriales getEditorial(int editorialesId);
+
+    @Select("SELECT COUNT(ID) FROM EDITORIALES WHERE ID=#{editorialesId}")
+    int existeEditorial(int editorialesId);
 }
