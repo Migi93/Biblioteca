@@ -1,4 +1,4 @@
-package com.api.biblioteca.mappers;
+package com.api.biblioteca.persistance.database.mappers;
 
 import com.api.biblioteca.models.Editoriales;
 import org.apache.ibatis.annotations.Mapper;
