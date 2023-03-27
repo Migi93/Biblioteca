@@ -28,4 +28,5 @@ public class LibrosController {
     ResponseEntity<Libros> getLibro(@PathVariable("id") int libroId) {
         return new ResponseEntity<>(this.librosService.obtenerLibro(libroId), HttpStatus.OK);
     }
+
 }

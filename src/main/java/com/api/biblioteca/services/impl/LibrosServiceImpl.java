@@ -1,8 +1,8 @@
 package com.api.biblioteca.services.impl;
 
+import com.api.biblioteca.mappers.EditorialesMapper;
+import com.api.biblioteca.mappers.LibrosMapper;
 import com.api.biblioteca.models.Libros;
-import com.api.biblioteca.persistance.database.mappers.EditorialesMapper;
-import com.api.biblioteca.persistance.database.mappers.LibrosMapper;
 import com.api.biblioteca.services.LibrosService;
 import org.springframework.stereotype.Service;
 
