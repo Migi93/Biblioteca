@@ -1,6 +1,7 @@
 package com.api.biblioteca.controllers;
 
 import com.api.biblioteca.models.Libros;
+import com.api.biblioteca.services.EditorialesService;
 import com.api.biblioteca.services.LibrosService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,10 +13,11 @@ import org.springframework.web.bind.annotation.*;
 public class LibrosController {
 
     LibrosService librosService;
+    EditorialesService editorialesService;
 
-
-    public LibrosController(LibrosService librosService) {
+    public LibrosController(LibrosService librosService, EditorialesService editorialesService) {
         this.librosService = librosService;
+        this.editorialesService = editorialesService;
     }
 
     @PostMapping("")
@@ -26,7 +28,9 @@ public class LibrosController {
 
     @GetMapping("/{id}")
     ResponseEntity<Libros> getLibro(@PathVariable("id") int libroId) {
-        return new ResponseEntity<>(this.librosService.obtenerLibro(libroId), HttpStatus.OK);
+        Libros libroResponse = this.librosService.obtenerLibro(libroId);
+        libroResponse.setEditorial(editorialesService.obtenerEditorial(libroResponse.getEditorial().getEditorialesId()));
+        return new ResponseEntity<>(libroResponse, HttpStatus.OK);
     }
 
 }
