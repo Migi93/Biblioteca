@@ -52,7 +52,7 @@ public interface LibrosMapper {
     @Delete("DELETE FROM LIBROS WHERE ID = #{libroId}")
     void deleteBook(int libroId);
 
-    @Select("SELECT COUNT(ISBN) FROM LIBROS WHERE ID = #{libroId}")
+    @Select("SELECT COUNT(ISBN) FROM LIBROS WHERE ISBN = #{isbn}")
     @Options(useGeneratedKeys = true, keyProperty = "libroId", keyColumn = "ID")
-    int existeIsbn(int libroId);
+    int existeIsbn(String isbn);
 }

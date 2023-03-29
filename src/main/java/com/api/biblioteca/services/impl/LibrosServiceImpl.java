@@ -25,7 +25,7 @@ public class LibrosServiceImpl implements LibrosService {
     public void insertBook(Libros libros) throws RequiredMissingFieldException, WorngLengthFielException, EditorialNotFound, AtributteNotIsUnique {
         validateNameBook(libros);
         existEditorialOrNull(libros.getEditorial());
-        existIsbn(libros.getLibroId());
+        existIsbn(libros.getIsbn());
         this.librosMapper.insertarLibro(libros);
     }
 
@@ -68,8 +68,8 @@ public class LibrosServiceImpl implements LibrosService {
         }
     }
 
-    private void existIsbn(int libroId) throws AtributteNotIsUnique {
-        if (librosMapper.existeIsbn(libroId) > 1) {
+    private void existIsbn(String isbn) throws AtributteNotIsUnique {
+        if (librosMapper.existeIsbn(isbn) > 0) {
             throw new AtributteNotIsUnique();
         }
     }

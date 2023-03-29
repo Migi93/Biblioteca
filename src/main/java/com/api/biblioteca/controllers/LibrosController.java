@@ -26,6 +26,7 @@ public class LibrosController {
             librosService.insertBook(libros);
         } catch (AtributteNotIsUnique e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El isbn introducido ya existe.");
+            //TODO: No es un bad_Request, hay que mirar que hay que lanzar
         } catch (RequiredMissingFieldException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Comprueba los datos de entrada");
         } catch (WorngLengthFielException e) {
