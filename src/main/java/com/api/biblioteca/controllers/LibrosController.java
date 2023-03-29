@@ -1,8 +1,7 @@
 package com.api.biblioteca.controllers;
 
-import com.api.biblioteca.exceptions.BookNotFoundException;
+import com.api.biblioteca.exceptions.*;
 import com.api.biblioteca.models.Libros;
-import com.api.biblioteca.services.EditorialesService;
 import com.api.biblioteca.services.LibrosService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,29 +15,40 @@ import java.util.List;
 public class LibrosController {
 
     private final LibrosService librosService;
-    private final EditorialesService editorialesService;
 
-    public LibrosController(LibrosService librosService, EditorialesService editorialesService) {
+    public LibrosController(LibrosService librosService) {
         this.librosService = librosService;
-        this.editorialesService = editorialesService;
     }
 
     @PostMapping("")
-    ResponseEntity<Libros> addLibro(@RequestBody Libros libros) {
-        Libros libroDevuelto = librosService.insertBook(libros);
-        return new ResponseEntity<>(libroDevuelto, HttpStatus.CREATED);
+    ResponseEntity addLibro(@RequestBody Libros libros) {
+        try {
+            librosService.insertBook(libros);
+        } catch (AtributteNotIsUnique e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El isbn introducido ya existe.");
+        } catch (RequiredMissingFieldException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Comprueba los datos de entrada");
+        } catch (WorngLengthFielException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nombre demasiado largo para el titulo.");
+        } catch (EditorialNotFound e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La editorial que desea añadir para este libro no existe.");
+        }
+        return ResponseEntity.ok(String.format("Libro añadido. Id: %d", libros.getLibroId()));
     }
 
     @GetMapping("")
     ResponseEntity<List<Libros>> getAllLibros() {
-        List<Libros> listaLibros = librosService.listBooks();
-        return new ResponseEntity<>(listaLibros, HttpStatus.OK);
+        return new ResponseEntity<>(librosService.listBooks(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<Libros> getLibro(@PathVariable("id") int libroId) {
-        Libros libroResponse = this.librosService.getBook(libroId);
-        libroResponse.setEditorial(editorialesService.obtenerEditorial(libroResponse.getEditorial().getEditorialesId()));
+    ResponseEntity getLibro(@PathVariable("id") int libroId) {
+        Libros libroResponse;
+        try {
+            libroResponse = this.librosService.getBook(libroId);
+        } catch (BookNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error, el libro no existe.");
+        }
         return new ResponseEntity<>(libroResponse, HttpStatus.OK);
     }
 

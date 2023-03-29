@@ -1,14 +1,14 @@
 package com.api.biblioteca.services;
 
-import com.api.biblioteca.exceptions.BookNotFoundException;
+import com.api.biblioteca.exceptions.*;
 import com.api.biblioteca.models.Libros;
 
 import java.util.List;
 
 public interface LibrosService {
-    Libros insertBook(Libros libros);
+    void insertBook(Libros libros) throws RequiredMissingFieldException, WorngLengthFielException, EditorialNotFound, AtributteNotIsUnique;
 
-    Libros getBook(int libroId);
+    Libros getBook(int libroId) throws BookNotFoundException;
 
     List<Libros> listBooks();
 

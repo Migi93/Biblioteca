@@ -1,8 +1,7 @@
 package com.api.biblioteca.services.impl;
 
-import com.api.biblioteca.exceptions.BookNotFoundException;
-import com.api.biblioteca.exceptions.RequiredMissingFieldException;
-import com.api.biblioteca.exceptions.WorngLengthFielException;
+import com.api.biblioteca.exceptions.*;
+import com.api.biblioteca.models.Editoriales;
 import com.api.biblioteca.models.Libros;
 import com.api.biblioteca.persistance.database.mappers.EditorialesMapper;
 import com.api.biblioteca.persistance.database.mappers.LibrosMapper;
@@ -22,24 +21,23 @@ public class LibrosServiceImpl implements LibrosService {
         this.editorialesMapper = editorialesMapper;
     }
 
-    public Libros insertBook(Libros libros) {
-        libros.setEditorial(editorialesMapper.getEditorial(libros.getEditorial().getEditorialesId()));
+    @Override
+    public void insertBook(Libros libros) throws RequiredMissingFieldException, WorngLengthFielException, EditorialNotFound, AtributteNotIsUnique {
+        validateNameBook(libros);
+        existEditorialOrNull(libros.getEditorial());
+        existIsbn(libros.getLibroId());
         this.librosMapper.insertarLibro(libros);
-        return libros;
     }
 
     @Override
-    public Libros getBook(int libroId) {
+    public Libros getBook(int libroId) throws BookNotFoundException {
+        existBook(libroId);
         return librosMapper.getLibro(libroId);
     }
 
     @Override
     public List<Libros> listBooks() {
-        List<Libros> libros = librosMapper.getListLibros();
-        for (Libros libro : libros) {
-            libro.setEditorial(editorialesMapper.getEditorial(libro.getEditorial().getEditorialesId()));
-        }
-        return libros;
+        return librosMapper.getListLibros();
     }
 
     @Override
@@ -58,13 +56,21 @@ public class LibrosServiceImpl implements LibrosService {
         }
     }
 
-    private void validateBook(Libros libros) throws RequiredMissingFieldException, WorngLengthFielException {
-        this.validateNameBook(libros);
-    }
-
     private void existBook(int libroId) throws BookNotFoundException {
         if (librosMapper.existeLibro(libroId) < 1) {
             throw new BookNotFoundException();
+        }
+    }
+
+    private void existEditorialOrNull(Editoriales editoriales) throws EditorialNotFound {
+        if (editorialesMapper.existeEditorial(editoriales.getEditorialesId()) < 1) {
+            throw new EditorialNotFound();
+        }
+    }
+
+    private void existIsbn(int libroId) throws AtributteNotIsUnique {
+        if (librosMapper.existeIsbn(libroId) > 1) {
+            throw new AtributteNotIsUnique();
         }
     }
 
