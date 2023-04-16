@@ -200,11 +200,6 @@ buildNumber.properties
 # https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar
 
-# Eclipse m2e generated files
-# Eclipse Core
-
-# JDT-specific (Eclipse Java Development Tools)
-
 
 ### OracleForms ###
 # Compiled Form Modules
@@ -216,4 +211,5 @@ buildNumber.properties
 # Compiled Pre-Linked Libraries
 *.plx
 
-# End of https://www.toptal.com/developers/gitignore/api/maven,java,git,oracleforms,intellij
+#Properties
+*.properties
