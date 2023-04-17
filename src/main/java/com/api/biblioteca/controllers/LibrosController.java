@@ -21,7 +21,7 @@ public class LibrosController {
     }
 
     @PostMapping("")
-    ResponseEntity addLibro(@RequestBody Libros libros) {
+    public ResponseEntity<Object> addLibro(@RequestBody Libros libros) {
         try {
             librosService.insertBook(libros);
         } catch (AtributteNotIsUnique e) {
@@ -38,12 +38,12 @@ public class LibrosController {
     }
 
     @GetMapping("")
-    ResponseEntity<List<Libros>> getAllLibros() {
+    public ResponseEntity<List<Libros>> getAllLibros() {
         return new ResponseEntity<>(librosService.listBooks(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    ResponseEntity getLibro(@PathVariable("id") int libroId) {
+    public ResponseEntity<Object> getLibro(@PathVariable("id") int libroId) {
         Libros libroResponse;
         try {
             libroResponse = this.librosService.getBook(libroId);
@@ -54,7 +54,7 @@ public class LibrosController {
     }
 
     @DeleteMapping("")
-    ResponseEntity deleteLibro(@RequestParam("id") int libroId) {
+    public ResponseEntity<Object> deleteLibro(@RequestParam("id") int libroId) {
         try {
             this.librosService.deleteBook(libroId);
         } catch (BookNotFoundException e) {
