@@ -16,34 +16,30 @@ public interface LibrosMapper {
 
     @Select("SELECT l.ID, l.TITULO, l.EDITORIAL_ID, l.FECHA_PUBLICACION, l.ISBN, e.ID, e.NOMBRE, e.DIRECCION, e.TELEFONO, e.CORREO, e.CORREO, e.FECHA_CREACION "
             + "FROM LIBROS l INNER JOIN EDITORIALES e ON l.EDITORIAL_ID = e.ID ORDER BY l.ID")
-    @Results({
-            @Result(property = "libroId", column = "ID"),
-            @Result(property = "titulo", column = "TITULO"),
-            @Result(property = "editorial.editorialesId", column = "EDITORIAL_ID"),
-            @Result(property = "fechaPublicacion", column = "FECHA_PUBLICACION"),
-            @Result(property = "isbn", column = "ISBN"),
-            @Result(property = "editorial.nombre", column = "NOMBRE"),
-            @Result(property = "editorial.direccion", column = "DIRECCION"),
-            @Result(property = "editorial.telefono", column = "TELEFONO"),
-            @Result(property = "editorial.email", column = "CORREO"),
-            @Result(property = "editorial.fechaCreacion", column = "FECHA_CREACION")
-    })
+    @Result(property = "libroId", column = "ID")
+    @Result(property = "titulo", column = "TITULO")
+    @Result(property = "editorial.editorialesId", column = "EDITORIAL_ID")
+    @Result(property = "fechaPublicacion", column = "FECHA_PUBLICACION")
+    @Result(property = "isbn", column = "ISBN")
+    @Result(property = "editorial.nombre", column = "NOMBRE")
+    @Result(property = "editorial.direccion", column = "DIRECCION")
+    @Result(property = "editorial.telefono", column = "TELEFONO")
+    @Result(property = "editorial.email", column = "CORREO")
+    @Result(property = "editorial.fechaCreacion", column = "FECHA_CREACION")
     List<Libros> getListLibros();
 
     @Select("SELECT l.ID, l.TITULO, l.EDITORIAL_ID, l.FECHA_PUBLICACION, l.ISBN, e.ID, e.NOMBRE, e.DIRECCION, e.TELEFONO, e.CORREO, e.CORREO, e.FECHA_CREACION "
             + "FROM LIBROS l INNER JOIN EDITORIALES e ON l.EDITORIAL_ID = e.ID WHERE l.ID = #{libroId}")
-    @Results({
-            @Result(property = "libroId", column = "ID"),
-            @Result(property = "titulo", column = "TITULO"),
-            @Result(property = "editorial.editorialesId", column = "EDITORIAL_ID"),
-            @Result(property = "fechaPublicacion", column = "FECHA_PUBLICACION"),
-            @Result(property = "isbn", column = "ISBN"),
-            @Result(property = "editorial.nombre", column = "NOMBRE"),
-            @Result(property = "editorial.direccion", column = "DIRECCION"),
-            @Result(property = "editorial.telefono", column = "TELEFONO"),
-            @Result(property = "editorial.email", column = "CORREO"),
-            @Result(property = "editorial.fechaCreacion", column = "FECHA_CREACION")
-    })
+    @Result(property = "libroId", column = "ID")
+    @Result(property = "titulo", column = "TITULO")
+    @Result(property = "editorial.editorialesId", column = "EDITORIAL_ID")
+    @Result(property = "fechaPublicacion", column = "FECHA_PUBLICACION")
+    @Result(property = "isbn", column = "ISBN")
+    @Result(property = "editorial.nombre", column = "NOMBRE")
+    @Result(property = "editorial.direccion", column = "DIRECCION")
+    @Result(property = "editorial.telefono", column = "TELEFONO")
+    @Result(property = "editorial.email", column = "CORREO")
+    @Result(property = "editorial.fechaCreacion", column = "FECHA_CREACION")
     Libros getLibro(int libroId);
 
     @Select("SELECT COUNT(ID) FROM LIBROS WHERE ID = #{libroId}")
