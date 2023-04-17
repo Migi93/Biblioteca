@@ -1,3 +1,3 @@
 # Biblioteca
 
-Proyecto de alquiler de libros de una biblioteca
+Aplicacion de alquiler de libros de una biblioteca pública
