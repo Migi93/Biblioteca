@@ -4,6 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 **/src/test/
+**/.mvn/
 
 ### STS ###
 .apt_generated
