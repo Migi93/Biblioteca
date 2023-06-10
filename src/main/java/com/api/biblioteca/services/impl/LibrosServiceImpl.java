@@ -6,6 +6,7 @@ import com.api.biblioteca.models.Libros;
 import com.api.biblioteca.persistance.database.mappers.EditorialesMapper;
 import com.api.biblioteca.persistance.database.mappers.LibrosMapper;
 import com.api.biblioteca.services.LibrosService;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
 @Service
 public class LibrosServiceImpl implements LibrosService {
 
-    
+
     LibrosMapper librosMapper;
     EditorialesMapper editorialesMapper;
 
@@ -24,7 +25,7 @@ public class LibrosServiceImpl implements LibrosService {
     }
 
     @Override
-    public void insertBook(Libros libros) throws RequiredMissingFieldException, WorngLengthFielException, EditorialNotFound, AtributteNotIsUnique {
+    public void insertBook(Libros libros) {
         validateNameBook(libros);
         existEditorialOrNull(libros.getEditorial());
         existIsbn(libros.getIsbn());
@@ -43,36 +44,36 @@ public class LibrosServiceImpl implements LibrosService {
     }
 
     @Override
-    public void deleteBook(int libroId) throws BookNotFoundException {
+    public void deleteBook(int libroId) {
         existBook(libroId);
         librosMapper.deleteBook(libroId);
     }
 
     //VALIDACIONES
-    private void validateNameBook(Libros libros) throws RequiredMissingFieldException, WorngLengthFielException {
+    private void validateNameBook(Libros libros) {
         if (libros.getTitulo() == null || libros.getTitulo().isEmpty()) {
-            throw new RequiredMissingFieldException();
+            throw new RequiredMissingFieldException("titulo", HttpStatus.BAD_REQUEST);
         }
         if (libros.getTitulo().length() > 100) {
-            throw new WorngLengthFielException();
+            throw new WorngLengthFieldException("titulo", HttpStatus.PAYLOAD_TOO_LARGE);
         }
     }
 
-    private void existBook(int libroId) throws BookNotFoundException {
+    private void existBook(int libroId) {
         if (librosMapper.existeLibro(libroId) < 1) {
-            throw new BookNotFoundException();
+            throw new BookNotFoundException("libro", HttpStatus.NOT_FOUND);
         }
     }
 
-    private void existEditorialOrNull(Editoriales editoriales) throws EditorialNotFound {
+    private void existEditorialOrNull(Editoriales editoriales) {
         if (editorialesMapper.existeEditorial(editoriales.getEditorialesId()) < 1) {
-            throw new EditorialNotFound();
+            throw new EditorialNotFound("editorial", HttpStatus.NOT_FOUND);
         }
     }
 
-    private void existIsbn(String isbn) throws AtributteNotIsUnique {
+    private void existIsbn(String isbn) {
         if (librosMapper.existeIsbn(isbn) > 0) {
-            throw new AtributteNotIsUnique();
+            throw new AtributteNotIsUnique("isbn", HttpStatus.CONFLICT);
         }
     }
 

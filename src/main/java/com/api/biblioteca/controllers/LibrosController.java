@@ -1,6 +1,5 @@
 package com.api.biblioteca.controllers;
 
-import com.api.biblioteca.exceptions.*;
 import com.api.biblioteca.models.Libros;
 import com.api.biblioteca.services.LibrosService;
 import org.springframework.http.HttpStatus;
@@ -8,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 //@RestController()
 @RestController
@@ -22,19 +22,8 @@ public class LibrosController {
 
     @PostMapping("")
     public ResponseEntity<Object> addLibro(@RequestBody Libros libros) {
-        try {
-            librosService.insertBook(libros);
-        } catch (AtributteNotIsUnique e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El isbn introducido ya existe.");
-            //TODO: No es un bad_Request, hay que mirar que hay que lanzar
-        } catch (RequiredMissingFieldException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Comprueba los datos de entrada");
-        } catch (WorngLengthFielException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nombre demasiado largo para el titulo.");
-        } catch (EditorialNotFound e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La editorial que desea añadir para este libro no existe.");
-        }
-        return ResponseEntity.ok(String.format("Libro añadido. Id: %d", libros.getLibroId()));
+        librosService.insertBook(libros);
+        return new ResponseEntity<>(Map.of("id", libros.getLibroId()), HttpStatus.CREATED);
     }
 
     @GetMapping("")
@@ -44,22 +33,12 @@ public class LibrosController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Object> getLibro(@PathVariable("id") int libroId) {
-        Libros libroResponse;
-        try {
-            libroResponse = this.librosService.getBook(libroId);
-        } catch (BookNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error, el libro no existe.");
-        }
-        return new ResponseEntity<>(libroResponse, HttpStatus.OK);
+        return new ResponseEntity<>(this.librosService.getBook(libroId), HttpStatus.OK);
     }
 
     @DeleteMapping("")
     public ResponseEntity<Object> deleteLibro(@RequestParam("id") int libroId) {
-        try {
-            this.librosService.deleteBook(libroId);
-        } catch (BookNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error, el libro no existe.");
-        }
-        return ResponseEntity.status(HttpStatus.OK).body("Libro con id: " + libroId + " eliminado correctamente.");
+        this.librosService.deleteBook(libroId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

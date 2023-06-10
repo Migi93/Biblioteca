@@ -1,4 +1,16 @@
 package com.api.biblioteca.exceptions;
 
-public class RequiredMissingFieldException extends Exception {
+import org.springframework.http.HttpStatus;
+
+public class RequiredMissingFieldException extends RequestApiValidationException {
+    private static final String EXTERNAL_MESSAGE = "El campo %s no puede estar vacio";
+
+    public RequiredMissingFieldException(HttpStatus statusCode) {
+        super(EXTERNAL_MESSAGE, statusCode);
+    }
+
+    public RequiredMissingFieldException(String mensaje, HttpStatus statusCode) {
+
+        super(EXTERNAL_MESSAGE, statusCode, new String[]{mensaje});
+    }
 }
