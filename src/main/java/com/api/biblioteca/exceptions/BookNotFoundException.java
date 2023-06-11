@@ -2,7 +2,7 @@ package com.api.biblioteca.exceptions;
 
 import org.springframework.http.HttpStatus;
 
-public class BookNotFoundException extends RequestApiValidationException {
+public class BookNotFoundException extends ApplicationException {
 
     private static final String EXTERNAL_MESSAGE = "ERROR. El %s no existe.";
 

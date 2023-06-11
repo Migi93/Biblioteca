@@ -2,7 +2,7 @@ package com.api.biblioteca.exceptions;
 
 import org.springframework.http.HttpStatus;
 
-public class EditorialNotFound extends RequestApiValidationException {
+public class EditorialNotFound extends ApplicationException {
     private static final String EXTERNAL_MESSAGE = "No se encuentra la %s";
 
     public EditorialNotFound() {

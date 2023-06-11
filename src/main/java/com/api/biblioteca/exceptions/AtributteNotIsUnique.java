@@ -2,7 +2,7 @@ package com.api.biblioteca.exceptions;
 
 import org.springframework.http.HttpStatus;
 
-public class AtributteNotIsUnique extends RequestApiValidationException {
+public class AtributteNotIsUnique extends ApplicationException {
 
     private static final String EXTERNAL_MESSAGE = "El campo %s ya existe.";
 

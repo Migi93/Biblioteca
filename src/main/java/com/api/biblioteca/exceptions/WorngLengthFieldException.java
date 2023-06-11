@@ -2,7 +2,7 @@ package com.api.biblioteca.exceptions;
 
 import org.springframework.http.HttpStatus;
 
-public class WorngLengthFieldException extends RequestApiValidationException {
+public class WorngLengthFieldException extends ApplicationException {
 
     private static final String EXTERNAL_MESSAGE = "El campo %s sobrepasa la longitud maxima de entrada.";
 

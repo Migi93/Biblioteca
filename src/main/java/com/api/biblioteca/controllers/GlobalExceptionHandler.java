@@ -1,6 +1,6 @@
 package com.api.biblioteca.controllers;
 
-import com.api.biblioteca.exceptions.RequestApiValidationException;
+import com.api.biblioteca.exceptions.ApplicationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -13,9 +13,9 @@ import java.util.Map;
 public class GlobalExceptionHandler {
     private static final String DESCRIPCION = "Descripcion: ";
 
-    @ExceptionHandler(RequestApiValidationException.class)
+    @ExceptionHandler(ApplicationException.class)
     @ResponseBody
-    public ResponseEntity<Object> handleRequestApiValidationException(RequestApiValidationException e) {
+    public ResponseEntity<Object> handleApplicationException(ApplicationException e) {
         return new ResponseEntity<>(Map.of(DESCRIPCION, e.getExternalMessage()), e.getStatusCode());
     }
 
