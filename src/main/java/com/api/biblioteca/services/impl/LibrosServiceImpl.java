@@ -15,7 +15,6 @@ import java.util.List;
 @Service
 public class LibrosServiceImpl implements LibrosService {
 
-
     LibrosMapper librosMapper;
     EditorialesMapper editorialesMapper;
 
@@ -40,6 +39,7 @@ public class LibrosServiceImpl implements LibrosService {
 
     @Override
     public List<Libros> listBooks() {
+        listaVacia();
         return librosMapper.getListLibros();
     }
 
@@ -67,13 +67,19 @@ public class LibrosServiceImpl implements LibrosService {
 
     private void existEditorialOrNull(Editoriales editoriales) {
         if (editorialesMapper.existeEditorial(editoriales.getEditorialesId()) < 1) {
-            throw new EditorialNotFound("editorial", HttpStatus.NOT_FOUND);
+            throw new EditorialNotFoundexception("editorial", HttpStatus.NOT_FOUND);
         }
     }
 
     private void existIsbn(String isbn) {
         if (librosMapper.existeIsbn(isbn) > 0) {
-            throw new AtributteNotIsUnique("isbn", HttpStatus.CONFLICT);
+            throw new AtributteNotIsUniqueException("isbn", HttpStatus.CONFLICT);
+        }
+    }
+
+    private void listaVacia() {
+        if (librosMapper.listaVacia() < 1) {
+            throw new ListIsEmptyOrNullException("libros", HttpStatus.NOT_FOUND);
         }
     }
 

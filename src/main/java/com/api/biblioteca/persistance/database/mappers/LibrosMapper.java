@@ -49,6 +49,8 @@ public interface LibrosMapper {
     void deleteBook(int libroId);
 
     @Select("SELECT COUNT(ISBN) FROM LIBROS WHERE ISBN = #{isbn}")
-    @Options(useGeneratedKeys = true, keyProperty = "libroId", keyColumn = "ID")
     int existeIsbn(String isbn);
+
+    @Select("SELECT COUNT(*) FROM LIBROS")
+    int listaVacia();
 }

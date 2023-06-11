@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class Editoriales {
 
-    private int editorialesId;
+    private Integer editorialesId;
     private String nombre;
     private String direccion;
     private String telefono;
@@ -14,11 +14,11 @@ public class Editoriales {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date fechaCreacion;
 
-    public int getEditorialesId() {
+    public Integer getEditorialesId() {
         return editorialesId;
     }
 
-    public void setEditorialesId(int editorialesId) {
+    public void setEditorialesId(Integer editorialesId) {
         this.editorialesId = editorialesId;
     }
 
