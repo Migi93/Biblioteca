@@ -82,6 +82,5 @@ public class LibrosServiceImpl implements LibrosService {
             throw new ListIsEmptyOrNullException("libros", HttpStatus.NOT_FOUND);
         }
     }
-
-
+    
 }
