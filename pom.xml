@@ -14,7 +14,7 @@
     <packaging>war</packaging>
     <name>biblioteca</name>
     <description>ApiRest para gestionar una Biblioteca, usando Maven, Spring, MyBatis, Oracle, y Swager para la
-        documentacion
+        documentación
     </description>
     <properties>
         <java.version>11</java.version>
@@ -35,6 +35,8 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
+            <!-- El provided hay que quitarlo para que el proyecto funcione correctamente y no de errores-->
+            <!-- <scope>provided</scope> -->
         </dependency>
 
         <dependency>
