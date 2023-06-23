@@ -68,6 +68,12 @@
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>2.3.0</version>
         </dependency>
+        <!-- Dependencia de Hibernate y JPA -->
+        <!-- Aunque el proyecto es con Mybatis, meto dependencia de Hibernate para probar -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
@@ -106,7 +112,6 @@
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
     </build>
 
