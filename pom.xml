@@ -70,10 +70,10 @@
         </dependency>
         <!-- Dependencia de Hibernate y JPA -->
         <!-- Aunque el proyecto es con Mybatis, meto dependencia de Hibernate para probar -->
-        <dependency>
+        <!--<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
