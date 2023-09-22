@@ -13,8 +13,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>biblioteca</name>
-    <description>ApiRest para gestionar una Biblioteca, usando Maven, Spring, MyBatis, Oracle, y Swager para la
-        documentación
+    <description>ApiRest to manage a Library, using Maven, Spring, MyBatis, Oracle, and Swagger for documentation
     </description>
     <properties>
         <java.version>11</java.version>
