@@ -1,8 +1,14 @@
 package com.api.biblioteca.services;
 
-import com.api.biblioteca.models.Editoriales;
+import com.api.biblioteca.models.Editorials;
+
+import java.util.List;
 
 public interface EditorialesService {
 
-    Editoriales obtenerEditorial(int editorialesId);
+    Editorials obtainEditorial(int editorialesId);
+
+    List<Editorials> listEditorials();
+
+    void insertEditorial(Editorials editorials);
 }

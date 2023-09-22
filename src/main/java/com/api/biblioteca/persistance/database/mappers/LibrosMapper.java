@@ -53,4 +53,8 @@ public interface LibrosMapper {
 
     @Select("SELECT COUNT(*) FROM LIBROS")
     int listaVacia();
+
+    @Update("UPDATE LIBROS SET TITULO = #{titulo}, EDITORIAL_ID = #{editorial.editorialesId}, FECHA_PUBLICACION = #{fechaPublicacion, jdbcType=DATE}, ISBN = #{isbn} " +
+            "WHERE ID = #{libroId}")
+    void updateBook(Libros libros);
 }

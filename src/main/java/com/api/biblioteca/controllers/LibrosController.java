@@ -38,6 +38,12 @@ public class LibrosController {
     @DeleteMapping("")
     public ResponseEntity<Object> deleteLibro(@RequestParam("id") int libroId) {
         this.librosService.deleteBook(libroId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping("")
+    public ResponseEntity<Object> updateLibro(@RequestBody Libros libros) {
+        this.librosService.updateBook(libros);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

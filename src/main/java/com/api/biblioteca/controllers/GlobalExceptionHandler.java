@@ -18,7 +18,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Object> handleApplicationException(ApplicationException e) {
         return new ResponseEntity<>(Map.of(DESCRIPCION, e.getExternalMessage()), e.getStatusCode());
     }
-
+    
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public ResponseEntity<Object> handleException(Exception e) {

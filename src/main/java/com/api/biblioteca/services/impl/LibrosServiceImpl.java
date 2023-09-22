@@ -1,9 +1,9 @@
 package com.api.biblioteca.services.impl;
 
 import com.api.biblioteca.exceptions.*;
-import com.api.biblioteca.models.Editoriales;
+import com.api.biblioteca.models.Editorials;
 import com.api.biblioteca.models.Libros;
-import com.api.biblioteca.persistance.database.mappers.EditorialesMapper;
+import com.api.biblioteca.persistance.database.mappers.EditorialsMapper;
 import com.api.biblioteca.persistance.database.mappers.LibrosMapper;
 import com.api.biblioteca.services.LibrosService;
 import org.springframework.http.HttpStatus;
@@ -16,11 +16,11 @@ import java.util.List;
 public class LibrosServiceImpl implements LibrosService {
 
     LibrosMapper librosMapper;
-    EditorialesMapper editorialesMapper;
+    EditorialsMapper editorialsMapper;
 
-    public LibrosServiceImpl(LibrosMapper librosMapper, EditorialesMapper editorialesMapper) {
+    public LibrosServiceImpl(LibrosMapper librosMapper, EditorialsMapper editorialsMapper) {
         this.librosMapper = librosMapper;
-        this.editorialesMapper = editorialesMapper;
+        this.editorialsMapper = editorialsMapper;
     }
 
     @Override
@@ -49,6 +49,14 @@ public class LibrosServiceImpl implements LibrosService {
         librosMapper.deleteBook(libroId);
     }
 
+    @Override
+    public void updateBook(Libros libros) {
+        existBook(libros.getLibroId());
+        existEditorialOrNull(libros.getEditorial());
+        validateNameBook(libros);
+        librosMapper.updateBook(libros);
+    }
+
     //VALIDACIONES
     private void validateNameBook(Libros libros) {
         if (libros.getTitulo() == null || libros.getTitulo().isEmpty()) {
@@ -65,8 +73,8 @@ public class LibrosServiceImpl implements LibrosService {
         }
     }
 
-    private void existEditorialOrNull(Editoriales editoriales) {
-        if (editorialesMapper.existeEditorial(editoriales.getEditorialesId()) < 1) {
+    private void existEditorialOrNull(Editorials editorials) {
+        if (editorialsMapper.notExistEditorial(editorials.getEditorialId()) < 1) {
             throw new EditorialNotFoundexception("editorial", HttpStatus.NOT_FOUND);
         }
     }
@@ -82,5 +90,5 @@ public class LibrosServiceImpl implements LibrosService {
             throw new ListIsEmptyOrNullException("libros", HttpStatus.NOT_FOUND);
         }
     }
-    
+
 }

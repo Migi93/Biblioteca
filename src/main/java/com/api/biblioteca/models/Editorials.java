@@ -8,13 +8,13 @@ import java.util.Date;
 
 @Setter
 @Getter
-public class Editoriales {
+public class Editorials {
 
-    private Integer editorialesId;
-    private String nombre;
-    private String direccion;
-    private String telefono;
+    private Integer editorialId;
+    private String name;
+    private String address;
+    private String phone;
     private String email;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    private Date fechaCreacion;
+    private Date creationDate;
 }

@@ -11,7 +11,7 @@ import java.util.Date;
 public class Libros {
     private int libroId;
     private String titulo;
-    private Editoriales editorial;
+    private Editorials editorial;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date fechaPublicacion;
     private String isbn;

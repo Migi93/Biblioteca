@@ -12,4 +12,6 @@ public interface LibrosService {
     List<Libros> listBooks();
 
     void deleteBook(int libroId);
+
+    void updateBook(Libros libros);
 }
