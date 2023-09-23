@@ -1,10 +1,10 @@
-package com.api.biblioteca.exceptions;
+package com.api.library.exceptions;
 
 import org.springframework.http.HttpStatus;
 
 public class AtributteNotIsUniqueException extends ApplicationException {
 
-    private static final String EXTERNAL_MESSAGE = "El campo %s ya existe.";
+    private static final String EXTERNAL_MESSAGE = "The field %s already exists.";
 
     public AtributteNotIsUniqueException() {
         super(EXTERNAL_MESSAGE, HttpStatus.BAD_REQUEST);

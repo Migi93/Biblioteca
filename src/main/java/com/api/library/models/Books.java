@@ -1,4 +1,4 @@
-package com.api.biblioteca.models;
+package com.api.library.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
@@ -8,11 +8,11 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class Libros {
-    private int libroId;
-    private String titulo;
+public class Books {
+    private int bookId;
+    private String title;
     private Editorials editorial;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    private Date fechaPublicacion;
+    private Date publicationDate;
     private String isbn;
 }

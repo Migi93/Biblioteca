@@ -1,10 +1,10 @@
-package com.api.biblioteca.exceptions;
+package com.api.library.exceptions;
 
 import org.springframework.http.HttpStatus;
 
 public class WorngLengthFieldException extends ApplicationException {
 
-    private static final String EXTERNAL_MESSAGE = "El campo %s sobrepasa la longitud maxima de entrada.";
+    private static final String EXTERNAL_MESSAGE = "The %s field exceeds the maximum input length.";
 
     public WorngLengthFieldException() {
         super(EXTERNAL_MESSAGE, HttpStatus.BAD_REQUEST);

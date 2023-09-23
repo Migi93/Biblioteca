@@ -1,10 +1,10 @@
-package com.api.biblioteca.exceptions;
+package com.api.library.exceptions;
 
 import org.springframework.http.HttpStatus;
 
 public class ObjectFoundException extends ApplicationException {
 
-    private static final String EXTERNAL_MESSAGE = "ERROR. El %s ya existe.";
+    private static final String EXTERNAL_MESSAGE = "Error. The %s already exists.";
 
     public ObjectFoundException() {
         super(EXTERNAL_MESSAGE, HttpStatus.BAD_REQUEST);

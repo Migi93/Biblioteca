@@ -1,6 +1,6 @@
-package com.api.biblioteca.persistance.database.mappers;
+package com.api.library.persistance.database.mappers;
 
-import com.api.biblioteca.models.Editorials;
+import com.api.library.models.Editorials;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;

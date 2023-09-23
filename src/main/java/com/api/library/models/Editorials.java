@@ -1,4 +1,4 @@
-package com.api.biblioteca.models;
+package com.api.library.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;

@@ -1,10 +1,10 @@
-package com.api.biblioteca.exceptions;
+package com.api.library.exceptions;
 
 import org.springframework.http.HttpStatus;
 
 public class ListIsEmptyOrNullException extends ApplicationException {
 
-    private static final String EXTERNAL_MESSAGE = "La lista de %s esta vacia";
+    private static final String EXTERNAL_MESSAGE = "The list of %s is empty.";
 
     public ListIsEmptyOrNullException() {
         super(EXTERNAL_MESSAGE, HttpStatus.BAD_REQUEST);

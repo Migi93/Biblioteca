@@ -1,6 +1,6 @@
-package com.api.biblioteca.controllers;
+package com.api.library.controllers;
 
-import com.api.biblioteca.exceptions.ApplicationException;
+import com.api.library.exceptions.ApplicationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -11,18 +11,18 @@ import java.util.Map;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
-    private static final String DESCRIPCION = "Descripcion: ";
+    private static final String DESCRIPTION = "Description: ";
 
     @ExceptionHandler(ApplicationException.class)
     @ResponseBody
     public ResponseEntity<Object> handleApplicationException(ApplicationException e) {
-        return new ResponseEntity<>(Map.of(DESCRIPCION, e.getExternalMessage()), e.getStatusCode());
+        return new ResponseEntity<>(Map.of(DESCRIPTION, e.getExternalMessage()), e.getStatusCode());
     }
-    
+
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public ResponseEntity<Object> handleException(Exception e) {
-        return new ResponseEntity<>(Map.of(DESCRIPCION, "Error: Ha ocurrido un error. Contacte con el departamento IT de la Biblioteca."), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(Map.of(DESCRIPTION, "Error: An error has occurred. Contact the IT department of the Library."), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }

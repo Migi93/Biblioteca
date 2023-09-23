@@ -1,19 +1,19 @@
-package com.api.biblioteca.services.impl;
+package com.api.library.services.impl;
 
-import com.api.biblioteca.exceptions.EditorialNotFoundexception;
-import com.api.biblioteca.exceptions.ObjectFoundException;
-import com.api.biblioteca.exceptions.RequiredMissingFieldException;
-import com.api.biblioteca.exceptions.WorngLengthFieldException;
-import com.api.biblioteca.models.Editorials;
-import com.api.biblioteca.persistance.database.mappers.EditorialsMapper;
-import com.api.biblioteca.services.EditorialesService;
+import com.api.library.exceptions.EditorialNotFoundexception;
+import com.api.library.exceptions.ObjectFoundException;
+import com.api.library.exceptions.RequiredMissingFieldException;
+import com.api.library.exceptions.WorngLengthFieldException;
+import com.api.library.models.Editorials;
+import com.api.library.persistance.database.mappers.EditorialsMapper;
+import com.api.library.services.EditorialsService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class EditorialsServiceImpl implements EditorialesService {
+public class EditorialsServiceImpl implements EditorialsService {
 
     EditorialsMapper editorialsMapper;
 
@@ -22,7 +22,7 @@ public class EditorialsServiceImpl implements EditorialesService {
     }
 
     @Override
-    public Editorials obtainEditorial(int editorialId) {
+    public Editorials getEditorial(int editorialId) {
         notExistEditorial(editorialId);
         return editorialsMapper.getEditorial(editorialId);
     }
