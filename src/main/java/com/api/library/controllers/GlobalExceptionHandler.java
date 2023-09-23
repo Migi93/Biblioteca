@@ -1,7 +1,6 @@
 package com.api.library.controllers;
 
 import com.api.library.exceptions.ApplicationException;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -19,10 +18,10 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(Map.of(DESCRIPTION, e.getExternalMessage()), e.getStatusCode());
     }
 
-    @ExceptionHandler(Exception.class)
+    /*@ExceptionHandler(Exception.class)
     @ResponseBody
     public ResponseEntity<Object> handleException(Exception e) {
         return new ResponseEntity<>(Map.of(DESCRIPTION, "Error: An error has occurred. Contact the IT department of the Library."), HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+    }*/
 
 }

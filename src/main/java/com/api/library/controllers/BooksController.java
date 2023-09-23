@@ -31,18 +31,18 @@ public class BooksController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getBook(@PathVariable("id") int bookId) {
+    public ResponseEntity<Books> getBook(@PathVariable("id") int bookId) {
         return new ResponseEntity<>(this.booksService.getBook(bookId), HttpStatus.OK);
     }
 
     @DeleteMapping("")
-    public ResponseEntity<Object> deleteBook(@RequestParam("id") int bookId) {
+    public ResponseEntity<HttpStatus> deleteBook(@RequestParam("id") int bookId) {
         this.booksService.deleteBook(bookId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping("")
-    public ResponseEntity<Object> updateBook(@RequestBody Books books) {
+    public ResponseEntity<HttpStatus> updateBook(@RequestBody Books books) {
         this.booksService.updateBook(books);
         return new ResponseEntity<>(HttpStatus.OK);
     }

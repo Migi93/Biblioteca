@@ -37,4 +37,11 @@ public interface EditorialsMapper {
     @Options(useGeneratedKeys = true, keyProperty = "editorialId", keyColumn = "ID")
     void insertEditorial(Editorials editorials);
 
+    @Update("UPDATE EDITORIALES SET NOMBRE = #{name}, DIRECCION = #{address}, TELEFONO = #{phone}, CORREO = #{email}, FECHA_CREACION = #{creationDate , jdbcType=DATE} " +
+            "WHERE ID = #{editorialId}")
+    void updateEditorial(Editorials editorials);
+
+    @Delete("DELETE FROM EDITORIALES WHERE ID = #{editorialId}")
+    void deleteEditorial(int editorialId);
+
 }

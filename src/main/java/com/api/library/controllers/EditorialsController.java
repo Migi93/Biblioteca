@@ -34,4 +34,16 @@ public class EditorialsController {
         editorialsService.insertEditorial(editorials);
         return new ResponseEntity<>(Map.of("id", editorials.getEditorialId()), HttpStatus.CREATED);
     }
+
+    @PutMapping("")
+    public ResponseEntity<HttpStatus> updateEditorial(@RequestBody Editorials editorials) {
+        editorialsService.updateEditorial(editorials);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("")
+    public ResponseEntity<HttpStatus> deleteBook(@RequestParam("id") int editorialId) {
+        editorialsService.deleteEditorial(editorialId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

@@ -11,4 +11,8 @@ public interface EditorialsService {
     List<Editorials> listEditorials();
 
     void insertEditorial(Editorials editorials);
+
+    void updateEditorial(Editorials editorials);
+
+    void deleteEditorial(int editorialId);
 }
