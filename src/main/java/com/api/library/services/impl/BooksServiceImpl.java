@@ -1,11 +1,16 @@
 package com.api.library.services.impl;
 
-import com.api.library.exceptions.*;
+import com.api.library.exceptions.AtributteNotIsUniqueException;
+import com.api.library.exceptions.BookNotFoundException;
+import com.api.library.exceptions.EditorialNotFoundexception;
+import com.api.library.exceptions.ListIsEmptyOrNullException;
 import com.api.library.models.Books;
 import com.api.library.models.Editorials;
 import com.api.library.persistance.database.mappers.BooksMapper;
 import com.api.library.persistance.database.mappers.EditorialsMapper;
 import com.api.library.services.BooksService;
+import com.api.library.services.Enum.Amount;
+import com.api.library.services.utils.ValidationsUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -14,21 +19,25 @@ import java.util.List;
 
 @Service
 public class BooksServiceImpl implements BooksService {
-
-    BooksMapper booksMapper;
-    EditorialsMapper editorialsMapper;
+    private final BooksMapper booksMapper;
+    private final EditorialsMapper editorialsMapper;
+    private final ValidationsUtils validationsUtils;
 
     public BooksServiceImpl(BooksMapper booksMapper, EditorialsMapper editorialsMapper) {
         this.booksMapper = booksMapper;
         this.editorialsMapper = editorialsMapper;
+        validationsUtils = new ValidationsUtils();
     }
 
     @Override
     public void insertBook(Books books) {
-        validateNameBook(books);
-        existEditorialOrNull(books.getEditorial());
+        validationsUtils.validateLengthAttribute(Amount.AMOUNT_100.getValue(), books.getTitle().length(), "title");
+        validationsUtils.validateNotIsEmpty(books.getTitle(), "title");
+        existEditorial(books.getEditorial());
+        validationsUtils.validateLengthAttribute(Amount.AMOUNT_17.getValue(), books.getIsbn().length(), "isbn");
+        validationsUtils.validateNotIsEmpty(books.getIsbn(), "isbn");
         existIsbn(books.getIsbn());
-        this.booksMapper.insertBook(books);
+        booksMapper.insertBook(books);
     }
 
     @Override
@@ -52,19 +61,12 @@ public class BooksServiceImpl implements BooksService {
     @Override
     public void updateBook(Books books) {
         existBook(books.getBookId());
-        existEditorialOrNull(books.getEditorial());
-        validateNameBook(books);
+        existEditorial(books.getEditorial());
+        validationsUtils.validateLengthAttribute(Amount.AMOUNT_100.getValue(), books.getTitle().length(), "title");
+        validationsUtils.validateNotIsEmpty(books.getTitle(), "title");
+        validationsUtils.validateLengthAttribute(Amount.AMOUNT_17.getValue(), books.getIsbn().length(), "isbn");
+        validationsUtils.validateNotIsEmpty(books.getIsbn(), "isbn");
         booksMapper.updateBook(books);
-    }
-
-    //VALIDACIONES
-    private void validateNameBook(Books books) {
-        if (books.getTitle() == null || books.getTitle().isEmpty()) {
-            throw new RequiredMissingFieldException("title", HttpStatus.BAD_REQUEST);
-        }
-        if (books.getTitle().length() > 100) {
-            throw new WorngLengthFieldException("title", HttpStatus.PAYLOAD_TOO_LARGE);
-        }
     }
 
     private void existBook(int libroId) {
@@ -73,7 +75,7 @@ public class BooksServiceImpl implements BooksService {
         }
     }
 
-    private void existEditorialOrNull(Editorials editorials) {
+    private void existEditorial(Editorials editorials) {
         if (editorialsMapper.notExistEditorial(editorials.getEditorialId()) < 1) {
             throw new EditorialNotFoundexception("editorial", HttpStatus.NOT_FOUND);
         }
